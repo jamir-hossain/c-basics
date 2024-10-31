@@ -122,7 +122,7 @@ This program demonstrates various data types in C, including their sizes and ran
 - **Size**: 4 bytes
 - **Range**: 0 to 4,294,967,295
 
-### Code Example:
+#### Code Example:
 
 ```c
 #include <stdio.h>
@@ -185,7 +185,7 @@ In C, there are several functions for handling input and output, primarily in th
     - The user's age with `%d`
     - The user's height with `%.2f`, which limits the height output to two decimal places for clarity.
 
-### Code Example:
+#### Code Example:
 
 ```c
 #include <stdio.h>
@@ -224,7 +224,7 @@ Arithmetic operators are used to perform basic mathematical operations such as a
 4. **Division (`/`)**: Divides the first number by the second, producing a quotient.
 5. **Modulus (`%`)**: Finds the remainder when the first number is divided by the second (applicable to integers).
 
-### Code Example:
+#### Code Example:
 
 ```c
 #include <stdio.h>
@@ -266,7 +266,7 @@ Assignment operators allow values to be assigned and modified in a single statem
 5. **`/=`** : Divides the left operand by the right operand and assigns the result to the left operand.
 6. **`%=`** : Takes the modulus of the left operand by the right operand and assigns the result to the left operand.
 
-### Code Example:
+#### Code Example:
 
 ```c
 #include <stdio.h>
@@ -313,7 +313,7 @@ int main()
 
 Relational operators are used to compare two values and return a boolean result (represented as `1` for true and `0` for false in C).
 
-### Code Example:
+#### Code Example:
 
 ```c
 #include <stdio.h>
@@ -348,7 +348,7 @@ int main()
 
 Logical operators are used to combine or invert boolean expressions, allowing for complex conditions in decision-making processes.
 
-### Code Example:
+#### Code Example:
 
 ```c
 #include <stdio.h>
@@ -391,7 +391,7 @@ conditional statements to execute different blocks of code based on specified co
 2. A control structure that executes different code blocks based on the specific value of a variable or expression.
 3. Use when dealing with a single variable that can take on multiple discrete values, making the code more readable for menu selections or similar scenarios.
 
-### Code Example:
+#### Code Example:
 
 ```c
 #include <stdio.h>
@@ -460,7 +460,7 @@ int main()
 
 The ternary operator is a shorthand conditional operator that evaluates a boolean expression and returns one of two values based on whether the expression is true or false. It utilizes the ternary operator, a shorthand for `if-else`, to evaluate and assign the maximum and minimum values.
 
-### Code Example:
+#### Code Example:
 
 ```c
 #include <stdio.h>
@@ -499,7 +499,7 @@ A **loop** in programming is a control structure that allows a block of code to 
 3. **Do-While Loop**:
    - The `do-while` loop guarantees that the loop body is executed at least once, as the condition is checked after the execution of the loop body.
 
-### Code Example:
+#### Code Example:
 
 ```c
 #include <stdio.h>
@@ -538,9 +538,204 @@ int main()
 }
 ```
 
+## Array
+
+An **array** is a collection of elements, all of the same data type, stored in contiguous memory locations. Arrays allow efficient storage and access of multiple values using a single variable name, accessed via indexing.
+
+### Code Example
+
+```c
+int numbers[5] = {85, 90, 78, 92, 88}; // Declares an array of 5 integers
+```
+
+### How Arrays Work, Size of an Array
+
+Arrays use contiguous memory blocks, where each element can be accessed with an index starting at `0`. The total size of an array depends on the data type and the number of elements it contains. For example, an `int` array with 5 elements requires `5 * sizeof(int)` bytes.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int numbers[5] = {1, 2, 3, 4, 5};
+
+    printf("Size of the array: %lu bytes\n", sizeof(numbers));
+    printf("Number of elements: %lu\n", sizeof(numbers) / sizeof(numbers[0]));
+
+    return 0;
+}
+```
+
+### Array Initialization
+
+An array can be initialized at the time of declaration, where values are assigned to the array elements directly. If the array size is specified, but fewer elements are provided, the remaining elements are initialized to `0`.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+   int ages[5] = {18, 21, 25}; // Remaining elements are initialized to 0
+   for (int i = 0; i < 5; i++) {
+      printf("%d ", ages[i]); // Output: 18 21 25 0 0
+   }
+
+    return 0;
+}
+```
+
+### Variable Length Arrays
+
+Variable Length Arrays (VLAs) allow the size of the array to be determined at runtime instead of compile-time, introduced in C99. This flexibility is useful when the number of elements is only known during execution.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int n;
+    printf("Enter the number of elements: ");
+    scanf("%d", &n);
+
+    int values[n]; // VLA declaration
+    for (int i = 0; i < n; i++) {
+        values[i] = i * 2;
+    }
+
+    for (int i = 0; i < n; i++) {
+        printf("%d ", values[i]);
+    }
+
+    return 0;
+}
+```
+
+## String
+
+A **string** in C is a sequence of characters terminated by a null character (`'\0'`). Strings are stored as arrays of characters, where the last character is always `'\0'` to indicate the end of the string.
+
+#### Code Example
+
+```c
+char greeting[6] = "Hello"; // Declares a string with 5 characters and a null terminator
+printf("Name: %s\n", greeting);
+```
+
+### String Input Output
+
+To handle string input and output, we commonly use `scanf` and `printf`. However, `scanf` stops reading at whitespace, so `fgets` is often preferred for input to allow spaces within strings.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    char name[50];
+
+    printf("Enter your name: ");
+    fgets(name, sizeof(name), stdin); // Reads a line of text including spaces
+    printf("Hello, %s", name);        // Outputs the entered name
+
+    return 0;
+}
+```
+
+### Finding Length of String
+
+The `strlen` function, available in `<string.h>`, is used to find the length of a string. It counts characters until the null terminator, excluding it.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char word[100] = "Programming";
+    int length = strlen(word);
+
+    printf("Length of the string: %d\n", length); // Output: 11
+
+    return 0;
+}
+```
+
+### Copy Strings
+
+The `strcpy` function, available in `<string.h>`, copies a source string to a destination string, including the null terminator. Ensure the destination has enough space to avoid overflow.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char source[] = "Hello";
+    char destination[20];
+
+    strcpy(destination, source);
+    printf("Copied string: %s\n", destination); // Output: Hello
+
+    return 0;
+}
+```
+
+### Concatenating Two Strings
+
+The `strcat` function, found in `<string.h>`, appends the contents of one string to the end of another. Make sure the destination has enough space to hold both strings.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char first[20] = "Hello, ";
+    char second[] = "World!";
+
+    strcat(first, second);
+    printf("Concatenated string: %s\n", first); // Output: Hello, World!
+
+    return 0;
+}
+```
+
+### Comparing Two Strings
+
+The `strcmp` function, provided by `<string.h>`, compares two strings lexicographically. It returns `0` if the strings are equal, a negative value if the first is less, and a positive value if the first is greater.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char str1[] = "apple";
+    char str2[] = "banana";
+    int result = strcmp(str1, str2);
+
+    if (result == 0) {
+        printf("Strings are equal\n");
+    } else if (result < 0) {
+        printf("str1 is less than str2\n");
+    } else {
+        printf("str1 is greater than str2\n");
+    }
+
+    return 0;
+}
+```
+
 ## Title
 
-### Code Example:
+#### Code Example:
 
 ```c
 
@@ -548,7 +743,7 @@ int main()
 
 ## Title
 
-### Code Example:
+#### Code Example:
 
 ```c
 
@@ -556,7 +751,7 @@ int main()
 
 ## Title
 
-### Code Example:
+#### Code Example:
 
 ```c
 
@@ -564,23 +759,7 @@ int main()
 
 ## Title
 
-### Code Example:
-
-```c
-
-```
-
-## Title
-
-### Code Example:
-
-```c
-
-```
-
-## Title
-
-### Code Example:
+#### Code Example:
 
 ```c
 
