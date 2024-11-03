@@ -6,21 +6,6 @@ int main()
    printf("Enter two integers: ");
    scanf("%d %d", &num1, &num2);
 
-   // Using if-else to compare numbers
-   if (num1 > num2)
-   {
-      printf("%d is greater than %d\n", num1, num2);
-   }
-   else if (num1 < num2)
-   {
-      printf("%d is less than %d\n", num1, num2);
-   }
-   else
-   {
-      printf("%d is equal to %d\n", num1, num2);
-   }
-
-   // Using switch to perform operations based on user choice
    int choice;
    printf("Choose an operation:\n");
    printf("1. Add\n");
@@ -30,6 +15,7 @@ int main()
    printf("Enter your choice (1-4): ");
    scanf("%d", &choice);
 
+   // Using switch to perform operations based on user choice
    switch (choice)
    {
    case 1:
