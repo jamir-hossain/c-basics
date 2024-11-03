@@ -733,20 +733,245 @@ int main() {
 }
 ```
 
-## Title
+## Function
+
+Functions in C are reusable blocks of code designed to perform a specific task. They help in organizing code, reducing repetition, and making programs easier to read and maintain. Each function can be called multiple times within a program, which allows for efficient code reuse.
+
+### Declaring and Using Functions
+
+Functions in C need to be declared before they are used. A function declaration (or prototype) includes the function's return type, name, and parameters. The function definition provides the actual code to execute when the function is called.
 
 #### Code Example:
 
 ```c
+#include <stdio.h>
 
+// Function declaration
+void greet();
+
+// Function definition
+void greet() {
+    printf("Hello from the greet function!\n");
+}
+
+int main() {
+    // Calling the function
+    greet();
+
+    return 0;
+}
 ```
 
-## Title
+### Function Parameters
+
+Function parameters (or arguments) allow data to be passed to a function. Parameters are specified within the parentheses in the function declaration and definition. When calling the function, you provide values (arguments) for these parameters.
 
 #### Code Example:
 
 ```c
+#include <stdio.h>
 
+// 'number' is a parameter
+void displayNumber(int number) {
+    printf("The number is: %d\n", number);
+}
+
+int main() {
+    // Calling the function with argument 5
+    displayNumber(5);
+
+    return 0;
+}
+```
+
+### Function Return Value
+
+A function can return a value using the `return` statement. The return type of the function (like `int`, `float`, etc.) must match the type of value it returns. If a function doesn’t return a value, its return type is `void`.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+// Function with return type 'int'
+int add(int a, int b) {
+    return a + b;
+}
+
+int main() {
+    // Calling the function and storing the return value
+    int sum = add(3, 4);
+
+    printf("Sum: %d\n", sum);
+
+    return 0;
+}
+```
+
+### Function Scopes
+
+The scope of a variable defines where it can be accessed within a program. Variables declared inside a function are local to that function and can’t be accessed outside it. Global variables, declared outside of any function, are accessible throughout the program.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int globalVar = 10; // Global variable
+
+void display() {
+    int localVar = 20; // Local variable
+    printf("Global variable: %d\n", globalVar);
+    printf("Local variable: %d\n", localVar);
+}
+
+int main() {
+    // Can access both global and local variables in display function
+    display();
+
+    // Error: It wll show an error as localVar is not accessible here
+    printf("%d", localVar);
+
+    return 0;
+}
+```
+
+## Pointer
+
+A pointer is a variable that stores the memory address of another variable. Pointers allow direct access to memory and enable efficient manipulation of data by working with memory locations rather than copying data values. Pointers are essential for dynamic memory management and for passing large amounts of data efficiently in C.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int num = 10;
+    int *ptr = &num; // 'ptr' is a pointer to 'num'
+
+    printf("Value of num: %d\n", num);
+    printf("Address of num: %p\n", ptr); // prints the address stored in ptr
+    printf("Value at address stored in ptr: %d\n", *ptr); // dereferencing pointer
+
+    return 0;
+}
+```
+
+### Working With Pointers
+
+Working with pointers involves using the `&` operator to get the address of a variable and the `*` operator (dereference operator) to access the value stored at the address held by the pointer.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+void updateValue(int *ptr) {
+    *ptr = 20; // modifies the value at the address stored in ptr
+}
+
+int main() {
+    int num = 10;
+    updateValue(&num); // passing the address of num
+    printf("Updated value of num: %d\n", num);
+
+    return 0;
+}
+```
+
+### Pointer Arithmetic
+
+Pointer arithmetic allows manipulation of pointers to navigate through arrays or memory. Incrementing a pointer `(ptr + 1)` moves it to the next element based on the data type size.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[] = {10, 20, 30, 40};
+    int *ptr = arr; // points to the first element
+
+    for (int i = 0; i < 4; i++) {
+        printf("Value at arr[%d]: %d\n", i, *ptr);
+        ptr++; // moves to the next element in the array
+    }
+
+    return 0;
+}
+```
+
+### Pointers and Constants
+
+Pointers can be declared as pointing to constant values or as constant pointers. This restricts modification either to the value being pointed to or the pointer itself.
+
+- Pointer to Constant: `const int *ptr` means the pointer cannot change the value it points to.
+- Constant Pointer: `int *const ptr` means the pointer cannot point to another address.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int num1 = 10, num2 = 20;
+    const int *ptr1 = &num1; // Pointer to constant
+    int *const ptr2 = &num1; // Constant pointer
+
+    // *ptr1 = 15; // Error: cannot modify the value
+    ptr1 = &num2;  // Allowed: can change the address
+
+    *ptr2 = 15;    // Allowed: can modify the value
+    // ptr2 = &num2; // Error: cannot change the address
+
+    return 0;
+}
+```
+
+### Using Pointers to Pass by Address in Functions
+
+Passing variables by address to a function enables the function to modify the actual value of the variable in the calling environment. This is useful when a function needs to return multiple values or modify a large data structure.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+void swap(int *a, int *b) {
+    int temp = *a;
+    *a = *b;
+    *b = temp;
+}
+
+int main() {
+    int x = 5, y = 10;
+    swap(&x, &y); // passing addresses of x and y
+    printf("Swapped values: x = %d, y = %d\n", x, y);
+
+    return 0;
+}
+```
+
+### Null Pointers
+
+A null pointer is a pointer that points to nothing (address 0). It is useful for indicating that the pointer is not currently pointing to any valid memory location.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int *ptr = NULL; // null pointer
+
+    if (ptr == NULL) {
+        printf("Pointer is null, not pointing to any memory address.\n");
+    } else {
+        printf("Pointer value: %d\n", *ptr);
+    }
+
+    return 0;
+}
 ```
 
 ## Title
