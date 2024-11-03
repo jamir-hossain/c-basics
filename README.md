@@ -1,5 +1,93 @@
 # Learn Basics of C Programming
 
+# Table of Contents
+
+- Format Specifiers
+
+  - [Overview](#format-specifiers)
+  - [Integer Types](#integer-types)
+  - [Floating Point Types](#floating-point-types)
+  - [Character Types](#character-types)
+  - [Other Specifiers](#other-specifiers)
+
+- Data Types Overview
+
+  - [Data Types](#data-types-overview)
+
+- Input and Output
+
+  - [Input Output](#input-and-output)
+
+- Operators
+
+  - [Overview](#operators)
+  - [Arithmetic Operators](#arithmetic-operators)
+  - [Assignment Operators](#assignment-operators)
+  - [Relational Operators](#relational-operators)
+  - [Logical Operators](#logical-operators)
+
+- Conditional
+
+  - [Overview](#conditional)
+  - [If Else](#if-else)
+  - [Switch Case](#switch-case)
+
+- Ternary Operators
+
+  - [Ternary Operators](#ternary-operators)
+
+- Loop
+
+  - [Loop](#loop)
+
+- Array
+
+  - [Overview](#array)
+  - [How Arrays Work, Size of an Array](#how-arrays-work-size-of-an-array)
+  - [Array Initialization](#array-initialization)
+  - [Variable Length Arrays](#variable-length-arrays)
+
+- String
+
+  - [Overview](#string)
+  - [String Input Output](#string-input-output)
+  - [Finding Length of String](#finding-length-of-string)
+  - [Copy Strings](#copy-strings)
+  - [Concatenating Two Strings](#concatenating-two-strings)
+  - [Comparing Two Strings](#comparing-two-strings)
+
+- Function
+
+  - [Overview](#function)
+  - [Declaring and Using Functions](#declaring-and-using-functions)
+  - [Function Parameters](#function-parameters)
+  - [Function Return Value](#function-return-value)
+  - [Function Scopes](#function-scopes)
+
+- Pointer
+
+  - [Overview](#pointer)
+  - [Working With Pointers](#working-with-pointers)
+  - [Pointer Arithmetic](#pointer-arithmetic)
+  - [Pointers and Constants](#pointers-and-constants)
+  - [Using Pointers to Pass by Address](#using-pointers-to-pass-by-address)
+  - [Null Pointers](#null-pointers)
+
+- Array and Pointers
+
+  - [Overview](#array-and-pointers)
+  - [Key Points](#key-points)
+  - [Accessing Array Elements with Pointers](#accessing-array-elements-with-pointers)
+  - [Modifying Array Elements Using Pointers](#modifying-array-elements-using-pointers)
+  - [Passing Arrays to Functions Using Pointers](#passing-arrays-to-functions-using-pointers)
+  - [Array and Pointer Key Note](#array-and-pointer-key-note)
+
+- Dynamic Memory Allocation
+
+  - [Overview](#dynamic-memory-allocation)
+  - [Dynamic Memory Management Functions](#dynamic-memory-management-functions)
+  - [Memory Allocation Key Note](#memory-allocation-key-note)
+
 ## Format Specifiers
 
 In the context of `printf` and `scanf`, format specifiers (or modifiers) are used to indicate the type of data being read or printed. Here's a breakdown of the common format specifiers used with `printf` and `scanf` for various data types and their modifiers:
@@ -386,11 +474,6 @@ conditional statements to execute different blocks of code based on specified co
 
 2. Use when evaluating multiple conditions that may involve complex logical expressions or ranges.
 
-### Switch-Case
-
-2. A control structure that executes different code blocks based on the specific value of a variable or expression.
-3. Use when dealing with a single variable that can take on multiple discrete values, making the code more readable for menu selections or similar scenarios.
-
 #### Code Example:
 
 ```c
@@ -416,7 +499,26 @@ int main()
       printf("%d is equal to %d\n", num1, num2);
    }
 
-   // Using switch to perform operations based on user choice
+   return 0;
+}
+```
+
+### Switch-Case
+
+2. A control structure that executes different code blocks based on the specific value of a variable or expression.
+3. Use when dealing with a single variable that can take on multiple discrete values, making the code more readable for menu selections or similar scenarios.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int main()
+{
+   int num1, num2;
+   printf("Enter two integers: ");
+   scanf("%d %d", &num1, &num2);
+
    int choice;
    printf("Choose an operation:\n");
    printf("1. Add\n");
@@ -426,6 +528,7 @@ int main()
    printf("Enter your choice (1-4): ");
    scanf("%d", &choice);
 
+   // Using switch to perform operations based on user choice
    switch (choice)
    {
    case 1:
@@ -928,7 +1031,7 @@ int main() {
 }
 ```
 
-### Using Pointers to Pass by Address in Functions
+### Using Pointers to Pass by Address
 
 Passing variables by address to a function enables the function to modify the actual value of the variable in the calling environment. This is useful when a function needs to return multiple values or modify a large data structure.
 
@@ -974,6 +1077,299 @@ int main() {
 }
 ```
 
+## Array and Pointers
+
+In C, arrays and pointers are closely related. When an array is declared, its name represents the address of the first element, making it functionally similar to a pointer. However, arrays are not the same as pointers. Arrays have a fixed size and their names cannot be reassigned to point to different memory locations, while pointers are variables that can store any address.
+
+### Key Points
+
+- The name of an array is essentially a constant pointer to its first element.
+- Accessing an array element (`arr[i]`) is equivalent to pointer arithmetic (`*(arr + i)`).
+- Although arrays and pointers are related, they are distinct: an array name is a constant pointer, while a pointer variable can be reassigned.
+
+### Accessing Array Elements with Pointers
+
+Using pointer arithmetic, you can access array elements by incrementing a pointer instead of using traditional array indexing.
+
+#### Code Example
+
+```c
+#include <stdio.h>
+
+int main()
+{
+    int arr[5] = {10, 20, 30, 40, 50};
+
+    // Access the first element pointer of array
+    printf("First Element %p\n", arr);
+
+    // Accessing elements using pointer arithmetic
+    for (int i = 0; i < 5; i++)
+    {
+        printf("Element %d: %d\n", i, *(arr + i));
+    }
+
+    // Accessing elements using array index
+    for (int i = 0; i < 5; i++)
+    {
+        printf("Element %d: %d\n", i, arr[i]);
+    }
+
+    return 0;
+}
+```
+
+### Modifying Array Elements Using Pointers
+
+You can use pointers to modify elements within an array. By dereferencing the pointer, you directly access and modify each element in the array.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int main() {
+    int arr[5] = {1, 2, 3, 4, 5};
+    int *ptr = arr; // Pointer to the first element of the array
+
+    // Modifying elements using pointer arithmetic
+    for (int i = 0; i < 5; i++) {
+        *(ptr + i) += 10; // Adds 10 to each element
+    }
+
+    // Displaying modified array
+    for (int i = 0; i < 5; i++) {
+        printf("Modified Element %d: %d\n", i, arr[i]);
+    }
+
+    return 0;
+}
+```
+
+### Passing Arrays to Functions Using Pointers
+
+When you pass an array to a function, you are actually passing a pointer to the first element of the array. This allows the function to modify the original array elements directly.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+// Function to increment each element by a given value
+void incrementArray(int *arr, int size, int increment) {
+    for (int i = 0; i < size; i++) {
+        *(arr + i) += increment; // Modify each element
+    }
+}
+
+int main() {
+    int arr[] = {5, 10, 15, 20, 25};
+    int size = sizeof(arr) / sizeof(arr[0]);
+
+    incrementArray(arr, size, 5); // Pass array to function
+
+    // Displaying the modified array
+    for (int i = 0; i < size; i++) {
+        printf("Element %d after increment: %d\n", i, arr[i]);
+    }
+
+    return 0;
+}
+```
+
+### Array and Pointer Key Note
+
+- `Array Name as Pointer:` The array name represents a pointer to the first element, enabling pointer-style access.
+- `Pointer Arithmetic:` Pointer arithmetic allows easy navigation and manipulation of array elements.
+- `Passing Arrays:` Arrays can be passed to functions as pointers, allowing direct modification of the original array.
+
+## Dynamic Memory Allocation
+
+Dynamic memory allocation in C is a process of allocating memory at runtime, as opposed to compile-time. This is useful when the exact size of memory needed is unknown at the time of writing the program. Dynamic memory allocation is managed using pointers, and four key functions are provided by the C standard library for this purpose:
+
+- **`malloc`**: Allocates a specified number of bytes and returns a pointer to the allocated memory.
+- **`calloc`**: Allocates memory for an array of elements, initializes them to zero, and returns a pointer.
+- **`realloc`**: Resizes previously allocated memory to a new size.
+- **`free`**: Deallocates memory that was previously allocated.
+
+### Dynamic Memory Management Functions
+
+#### 1. `malloc`
+
+- Stands for "memory allocation".
+- Allocates a specified amount of memory (in bytes) but does not initialize it.
+- Returns a pointer to the beginning of the allocated memory block.
+
+#### Example
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *ptr;
+    int n = 5;
+
+    // Allocating memory for 5 integers
+    ptr = (int *)malloc(n * sizeof(int));
+
+    if (ptr == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    // Initializing and displaying allocated memory
+    for (int i = 0; i < n; i++) {
+        ptr[i] = i + 1;
+        printf("ptr[%d] = %d\n", i, ptr[i]);
+    }
+
+    // Freeing the allocated memory
+    free(ptr);
+    return 0;
+}
+```
+
+#### 1. `malloc`
+
+- Stands for "memory allocation".
+- Allocates a specified amount of memory (in bytes) but does not initialize it.
+- Returns a pointer to the beginning of the allocated memory block.
+
+#### Code Example:
+
+```c
+
+```
+
+#### 2. `calloc`
+
+- Stands for "contiguous allocation".
+- Allocates memory for an array of elements, initializes all bytes to zero.
+- Takes two parameters: the number of elements and the size of each element.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *ptr;
+    int n = 5;
+
+    // Allocating memory for 5 integers
+    ptr = (int *)calloc(n, sizeof(int));
+
+    if (ptr == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    // Displaying initialized memory (all elements are zero)
+    for (int i = 0; i < n; i++) {
+        printf("ptr[%d] = %d\n", i, ptr[i]);
+    }
+
+    // Freeing the allocated memory
+    free(ptr);
+    return 0;
+}
+```
+
+#### 3. `realloc`
+
+- Stands for "re-allocation".
+- Changes the size of previously allocated memory without losing its content.
+- Useful when the initial memory size needs adjustment.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *ptr;
+    int n = 5;
+
+    // Allocating memory for 5 integers
+    ptr = (int *)malloc(n * sizeof(int));
+
+    if (ptr == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    // Initializing allocated memory
+    for (int i = 0; i < n; i++) {
+        ptr[i] = i + 1;
+    }
+
+    // Reallocating memory to store 10 integers
+    n = 10;
+    ptr = (int *)realloc(ptr, n * sizeof(int));
+
+    if (ptr == NULL) {
+        printf("Memory reallocation failed\n");
+        return 1;
+    }
+
+    // Initializing the newly allocated memory
+    for (int i = 5; i < n; i++) {
+        ptr[i] = i + 1;
+    }
+
+    // Displaying all elements
+    for (int i = 0; i < n; i++) {
+        printf("ptr[%d] = %d\n", i, ptr[i]);
+    }
+
+    // Freeing the allocated memory
+    free(ptr);
+    return 0;
+}
+```
+
+#### 4. `free`
+
+- Used to release memory that was previously allocated using `malloc`, `calloc`, or `realloc`.
+- Failing to free memory may cause memory leaks, which can degrade performance over time.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+#include <stdlib.h>
+
+int main() {
+    int *ptr;
+
+    // Allocating memory for 5 integers
+    ptr = (int *)malloc(5 * sizeof(int));
+
+    if (ptr == NULL) {
+        printf("Memory allocation failed\n");
+        return 1;
+    }
+
+    // Freeing the allocated memory
+    free(ptr);
+    printf("Memory has been freed.\n");
+
+    return 0;
+}
+```
+
+### Memory Allocation Key Note
+
+| Function  | Purpose                          | Initialization         | Usage                                            |
+| --------- | -------------------------------- | ---------------------- | ------------------------------------------------ |
+| `malloc`  | Allocates memory                 | No                     | Used for allocating a specific number of bytes   |
+| `calloc`  | Allocates memory for an array    | Yes (zero-initialized) | Useful for allocating memory for arrays          |
+| `realloc` | Changes size of allocated memory | No                     | Expands or contracts previously allocated memory |
+| `free`    | Deallocates memory               | -                      | Releases memory back to the system               |
+
 ## Title
 
 #### Code Example:
@@ -989,3 +1385,19 @@ int main() {
 ```c
 
 ```
+
+## Title
+
+#### Code Example:
+
+```c
+
+```
+
+# This is my section
+
+Details for section 1.
+
+# Section 2
+
+Details for section 2.
