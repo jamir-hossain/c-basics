@@ -39,6 +39,9 @@
 - Loop
 
   - [Loop](#loop)
+  - [For Loop](#for-loop)
+  - [While Loop](#while-loop)
+  - [Do-While Loop](#do-while-loop)
 
 - Array
 
@@ -87,6 +90,13 @@
   - [Overview](#dynamic-memory-allocation)
   - [Dynamic Memory Management Functions](#dynamic-memory-management-functions)
   - [Memory Allocation Key Note](#memory-allocation-key-note)
+
+- Structure
+
+  - [Overview](#structure)
+  - [Working with Structure](#working-with-structure)
+  - [Function and Structure](#function-and-structure)
+  - [Array of Structure](#array-of-structure)
 
 ## Format Specifiers
 
@@ -591,16 +601,9 @@ int main()
 
 A **loop** in programming is a control structure that allows a block of code to be executed repeatedly based on a specified condition. Loops facilitate the automation of repetitive tasks by iterating through a sequence of instructions until a particular condition is met. Common types of loops include `for`, `while`, and `do-while`, each serving different use cases based on the nature of iteration required.
 
-1. **For Loop**:
+### For Loop
 
-   - The `for` loop is used when the number of iterations is known beforehand. It consists of three parts: initialization, condition, and increment/decrement.
-
-2. **While Loop**:
-
-   - The `while` loop is used when the number of iterations is not known and should continue until a specific condition is met. The loop checks the condition before executing the body.
-
-3. **Do-While Loop**:
-   - The `do-while` loop guarantees that the loop body is executed at least once, as the condition is checked after the execution of the loop body.
+The `for` loop is used when the number of iterations is known beforehand. It consists of three parts: initialization, condition, and increment/decrement.
 
 #### Code Example:
 
@@ -611,30 +614,66 @@ int main()
 {
    // Use a for loop for a known number of iterations.
    printf("Using for loop:\n");
+
    for (int i = 1; i <= 10; i++)
    {
       printf("%d ", i);
    }
+
    printf("\n");
 
+   return 0;
+}
+```
+
+### While Loop
+
+The `while` loop is used when the number of iterations is not known and should continue until a specific condition is met. The loop checks the condition before executing the body.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int main()
+{
    // Use a while loop when the loop should continue until a condition changes.
    printf("Using while loop:\n");
    int j = 1;
+
    while (j <= 10)
    {
       printf("%d ", j);
       j++;
    }
+
    printf("\n");
 
+   return 0;
+}
+```
+
+### Do-While Loop
+
+The `do-while` loop guarantees that the loop body is executed at least once, as the condition is checked after the execution of the loop body.
+
+#### Code Example:
+
+```c
+#include <stdio.h>
+
+int main()
+{
    // Use a do-while loop when you need to execute the loop body at least once before checking the condition.
    printf("Using do-while loop:\n");
    int k = 1;
+
    do
    {
       printf("%d ", k);
       k++;
    } while (k <= 10);
+
    printf("\n");
 
    return 0;
@@ -1370,34 +1409,128 @@ int main() {
 | `realloc` | Changes size of allocated memory | No                     | Expands or contracts previously allocated memory |
 | `free`    | Deallocates memory               | -                      | Releases memory back to the system               |
 
-## Title
+## Structure
+
+Structure in C allow you to group different data types under a single name, making it easier to manage related data as a unit. They are particularly useful for representing complex data records, such as a student’s name, age, and grades.
+
+### Declaration, Initialization, and Assignment
+
+To use a structure, first declare it with `struct` keyword and the name of a structure. Then, you can initialize a structure variable and assign values to its members.
 
 #### Code Example:
 
 ```c
+#include <stdio.h>
 
+struct Student {
+    char name[50];
+    int age;
+    float grade;
+};
+
+int main() {
+    struct Student student1 = {"Alice", 20, 85.5};  // Initialization
+    student1.age = 21;  // Assignment
+
+    printf("Name: %s, Age: %d, Grade: %.2f\n", student1.name, student1.age, student1.grade);
+
+    return 0;
+}
 ```
 
-## Title
+### Working with Structure
+
+You can access members of a structure using the dot `.` operator. Structures can also be used in arrays or passed to functions, making them versatile tools for managing data.
 
 #### Code Example:
 
 ```c
+#include <stdio.h>
 
+struct Student {
+    char name[50];
+    int age;
+    float grade;
+};
+
+int main() {
+    struct Student student1;
+
+    printf("Enter name: ");
+    scanf("%s", student1.name);
+
+    printf("Enter age: ");
+    scanf("%d", &student1.age);
+
+    printf("Enter grade: ");
+    scanf("%f", &student1.grade);
+
+    printf("Student - Name: %s, Age: %d, Grade: %.2f\n", student1.name, student1.age, student1.grade);
+
+    return 0;
+}
 ```
 
-## Title
+### Function and Structure
+
+You can pass structures to functions by value or by reference (using pointers). Passing by reference is more memory-efficient, especially for large structures.
 
 #### Code Example:
 
 ```c
+#include <stdio.h>
 
+struct Student
+{
+   char name[50];
+   int age;
+   float grade;
+};
+
+// Function to display student information
+void displayStudent(struct Student *s)
+{
+   printf("Name: %s, Age: %d, Grade: %.2f\n", s->name, s->age, s->grade);
+
+   strcpy(s->name, "Jamir");
+}
+
+int main()
+{
+   struct Student student1 = {"Bob", 22, 90.0};
+   displayStudent(&student1);
+
+   printf("Name: %s, Age: %d, Grade: %.2f\n", student1.name, student1.age, student1.grade);
+
+   return 0;
+}
 ```
 
-# This is my section
+### Array of Structure
 
-Details for section 1.
+An array of structure allows you to store multiple records of the same structure type, which is useful for handling collections of data like a list of students.
 
-# Section 2
+#### Code Example:
 
-Details for section 2.
+```c
+#include <stdio.h>
+
+struct Student {
+    char name[50];
+    int age;
+    float grade;
+};
+
+int main() {
+    struct Student students[3] = {
+        {"Alice", 20, 85.5},
+        {"Bob", 21, 90.0},
+        {"Charlie", 22, 88.0}
+    };
+
+    for (int i = 0; i < 3; i++) {
+        printf("Student %d - Name: %s, Age: %d, Grade: %.2f\n", i+1, students[i].name, students[i].age, students[i].grade);
+    }
+    return 0;
+}
+```
