@@ -1,4 +1,4 @@
-# Learn Basics of C Programming
+# Starting with C: All the Fundamentals in One Guide
 
 # Table of Contents
 
