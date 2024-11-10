@@ -1,5 +1,7 @@
 # Starting with C: All the Fundamentals in One Guide
 
+"Starting with C: All the Fundamentals in One Guide" is your go-to resource for learning C programming from the ground up. This guide covers essential topics, from variables and data types to pointers and structure, providing a solid foundation for beginners. Whether you’re new to coding or brushing up on the basics, this comprehensive doc will equip you with the knowledge needed to start writing C programs confidently. Dive in and start your journey with C today!
+
 # Table of Contents
 
 - Format Specifiers
